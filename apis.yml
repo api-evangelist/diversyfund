@@ -1,17 +1,34 @@
 aid: diversyfund
 name: DiversyFund
-description: 'DiversyFund is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'DiversyFund is a San Diego based private-markets investment platform
+  that packages institutional-style fixed income and multifamily real estate offerings
+  for individual accredited investors. Formed in 2016 and qualified under SEC Regulation
+  A+, the firm acts as sponsor, developer and manager of its own funds rather than
+  as a broker, and reports having acquired more than $300 million across 20+ multifamily
+  properties for a base of 28,000+ investors. Its current offering, the Distressed
+  Income Fund, is a Reg D 506(c) preferred-equity vehicle sold to accredited investors
+  with a target allocation of $100K to $1M. Investing is transacted through a private,
+  authenticated investor portal at portal.diversyfund.com (WorkOS AuthKit); DiversyFund
+  publishes no public developer portal, API documentation, SDKs, or machine-readable
+  API contract.'
+image: https://diversyfund.com/images/diversyfund-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/diversyfund/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profile
+x-tier-reason: enriched-no-public-api
 specificationVersion: '0.20'
 created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
+- Real Estate
+- Investing
+- Private Markets
+- Fixed Income
+- Fintech
+- Wealth Management
+- Crowdfunding
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -20,4 +37,42 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
+  url: https://diversyfund.com/
+- type: About
+  url: https://diversyfund.com/about
+- type: Blog
+  url: https://diversyfund.com/insights-education
+- type: Support
+  url: https://diversyfund.com/support
+- type: Contact
+  url: https://diversyfund.com/contact
+- type: Login
+  url: https://portal.diversyfund.com/sign-in
+- type: SignUp
+  url: https://portal.diversyfund.com/sign-up
+- type: TermsOfService
+  url: https://diversyfund.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://diversyfund.com/privacy-policy
+- type: Legal
+  url: https://diversyfund.com/documents
+- type: Investors
+  name: Forge Global secondary-market listing
   url: https://forgeglobal.com/diversyfund_stock/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/diversyfund/
+- type: Twitter
+  url: https://x.com/DiversyFund
+- type: Facebook
+  url: https://www.facebook.com/DiversyFund
+- type: Instagram
+  url: https://www.instagram.com/diversyfund/
+- type: LLMsTxt
+  url: llms/diversyfund-llms.txt
+- type: DomainSecurity
+  url: security/diversyfund-domain-security.yml
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 4
+  pass: local-v1

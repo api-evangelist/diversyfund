@@ -42,5 +42,20 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-DiversyFund is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/diversyfund_stock/
+DiversyFund is a San Diego based private-markets investment platform that packages
+institutional-style fixed income and multifamily real estate offerings for individual
+accredited investors. Formed in 2016 and qualified under SEC Regulation A+, the firm acts
+as sponsor, developer and manager of its own funds rather than as a broker. Its current
+offering, the Distressed Income Fund, is a Reg D 506(c) preferred-equity vehicle sold to
+accredited investors.
+
+**DiversyFund publishes no public API.** As of 2026-08-04 there is no developer portal, no
+API reference, no OpenAPI/Swagger/GraphQL/AsyncAPI document, no MCP server, no A2A agent
+card, no first-party SDK in any public package registry, and no `/.well-known/` document on
+any DiversyFund host. All investor activity happens inside an authenticated portal at
+`portal.diversyfund.com`, where every anonymous request redirects to WorkOS AuthKit. The
+full probe evidence table is in [`review.yml`](review.yml).
+
+- Website — https://diversyfund.com/
+- Investor portal — https://portal.diversyfund.com/sign-in
+- Forge Global secondary-market listing — https://forgeglobal.com/diversyfund_stock/

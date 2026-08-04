@@ -1,0 +1,142 @@
+aid: diversyfund
+name: DiversyFund
+review:
+  question: >-
+    Does DiversyFund publish any public, machine-readable API contract or
+    developer surface — OpenAPI, GraphQL, AsyncAPI, MCP, or an A2A agent card?
+  answer: false
+  date: '2026-08-04'
+  reviewer: API Evangelist
+  method: probed
+findings:
+  summary: |
+    DiversyFund publishes no public API and no developer program. It is a
+    San Diego based private-markets investment platform (formed 2016, qualified
+    under SEC Regulation A+) that sponsors, develops and manages its own real
+    estate and fixed income funds rather than acting as a broker. Its current
+    offering, the Distressed Income Fund, is a Reg D 506(c) preferred-equity
+    vehicle limited to accredited investors.
+
+    All investor activity happens inside an authenticated single-tenant portal at
+    https://portal.diversyfund.com, which is fronted by WorkOS AuthKit: every
+    anonymous request to any path on that host — including /api/* and every
+    /.well-known/* path — returns HTTP 307 to
+    https://api.workos.com/user_management/authorize (or 404). There is no
+    developer portal host, no api.* / docs.* / developer.* subdomain (all three
+    fail DNS resolution), no API reference page, no SDK in any public package
+    registry, no llms.txt, and no /.well-known/ document of any kind.
+
+    The company's public-facing technology posture is that of a buyer of APIs,
+    not a publisher of one. The Content-Security-Policy served by the investor
+    portal names its vendor dependencies explicitly (see integrationsObserved
+    below) — WorkOS for identity, Stripe for payments, DocuSeal for e-signature,
+    Sumsub and Parallel Markets for KYC/accreditation, PostHog for analytics,
+    Trigger.dev for background jobs, Vercel for hosting, plus OpenAI and Exa.ai.
+    None of these are DiversyFund APIs.
+  developerPortal:
+    url: null
+    exists: false
+    note: >-
+      No developer portal, API reference, or getting-started surface exists on
+      any DiversyFund host as of the review date.
+  contractDiscovery:
+    conclusion: no-machine-readable-contract
+    hostsProbed:
+    - https://diversyfund.com
+    - https://www.diversyfund.com
+    - https://portal.diversyfund.com
+    - https://api.diversyfund.com
+    - https://docs.diversyfund.com
+    - https://developer.diversyfund.com
+    - https://app.diversyfund.com
+    - https://status.diversyfund.com
+    - https://trust.diversyfund.com
+    evidence:
+    - {url: 'https://diversyfund.com/', status: 200, note: marketing site, Next.js}
+    - {url: 'https://www.diversyfund.com/', status: 200, note: redirects to apex}
+    - {url: 'https://diversyfund.com/openapi.json', status: 404}
+    - {url: 'https://diversyfund.com/swagger.json', status: 404}
+    - {url: 'https://diversyfund.com/api-docs', status: 404}
+    - {url: 'https://diversyfund.com/api/', status: 404}
+    - {url: 'https://diversyfund.com/api/openapi.json', status: 404}
+    - {url: 'https://diversyfund.com/api/v1', status: 404}
+    - {url: 'https://diversyfund.com/graphql', status: 404}
+    - {url: 'https://diversyfund.com/llms.txt', status: 404}
+    - {url: 'https://diversyfund.com/.well-known/security.txt', status: 404}
+    - {url: 'https://diversyfund.com/.well-known/openid-configuration', status: 404}
+    - {url: 'https://diversyfund.com/.well-known/oauth-authorization-server', status: 404}
+    - {url: 'https://diversyfund.com/.well-known/api-catalog', status: 404}
+    - {url: 'https://diversyfund.com/.well-known/ai-plugin.json', status: 404}
+    - {url: 'https://diversyfund.com/.well-known/agent-card.json', status: 404}
+    - {url: 'https://diversyfund.com/.well-known/agent.json', status: 404}
+    - {url: 'https://portal.diversyfund.com/', status: 307, note: 'Location: api.workos.com/user_management/authorize'}
+    - {url: 'https://portal.diversyfund.com/api/openapi.json', status: 307, note: auth redirect, not a spec}
+    - {url: 'https://portal.diversyfund.com/graphql', status: 307, note: auth redirect, not a GraphQL surface}
+    - {url: 'https://portal.diversyfund.com/.well-known/openid-configuration', status: 404}
+    - {url: 'https://portal.diversyfund.com/.well-known/oauth-protected-resource', status: 404}
+    - {url: 'https://portal.diversyfund.com/.well-known/agent-card.json', status: 404}
+    - {url: 'https://portal.diversyfund.com/.well-known/agent.json', status: 404}
+    - {url: 'https://api.diversyfund.com/', status: 0, note: DNS does not resolve}
+    - {url: 'https://docs.diversyfund.com/', status: 0, note: DNS does not resolve}
+    - {url: 'https://developer.diversyfund.com/', status: 0, note: DNS does not resolve}
+    - {url: 'https://status.diversyfund.com/', status: 0, note: DNS does not resolve}
+    - {url: 'https://trust.diversyfund.com/', status: 0, note: DNS does not resolve}
+    falsePositivesRejected:
+    - target: https://portal.diversyfund.com/api/openapi.json
+      why: >-
+        Returns 200 under redirect-following, but the body is the WorkOS AuthKit
+        HTML sign-in page. Without -L it is a 307 to the WorkOS authorize
+        endpoint. Not a specification.
+    - target: https://portal.diversyfund.com/graphql
+      why: Same WorkOS auth redirect; no GraphQL endpoint responds.
+  packageRegistries:
+    searched: [npm, PyPI, RubyGems, Packagist, GitHub]
+    firstPartyPackagesFound: 0
+    evidence:
+    - {registry: npm, query: diversyfund, results: 0}
+    - {registry: rubygems, query: diversyfund, results: 0}
+    - {registry: packagist, query: diversyfund, results: 0}
+    - {registry: github, url: 'https://github.com/diversyfund', status: 404, note: no GitHub organization}
+  integrationsObserved:
+    source: Content-Security-Policy header served by https://portal.diversyfund.com
+    note: >-
+      Third-party APIs DiversyFund consumes, observed from its own CSP allowlist.
+      Recorded as evidence of posture only — none of these are DiversyFund APIs.
+    vendors:
+    - {vendor: WorkOS, domain: 'workos.com', role: identity / AuthKit}
+    - {vendor: Stripe, domain: 'api.stripe.com', role: payments}
+    - {vendor: DocuSeal, domain: 'docuseal.com', role: e-signature}
+    - {vendor: Sumsub, domain: 'sumsub.com', role: KYC / identity verification}
+    - {vendor: Parallel Markets, domain: 'parallelmarkets.com', role: accreditation verification}
+    - {vendor: PostHog, domain: 'i.posthog.com', role: product analytics}
+    - {vendor: Trigger.dev, domain: 'trigger.dev', role: background jobs (wss)}
+    - {vendor: Vercel, domain: 'vercel.app', role: hosting}
+    - {vendor: OpenAI, domain: 'openai.com', role: AI}
+    - {vendor: Exa, domain: 'exa.ai', role: AI search}
+  securityPosture:
+    securityTxt: false
+    vulnerabilityDisclosure: none-found
+    trustCenter: none-found
+    statusPage: none-found
+    domainSecurity: security/diversyfund-domain-security.yml
+    notes:
+    - TLSv1.3 on diversyfund.com; certificate valid to 2026-10-25.
+    - No HSTS header on the marketing host.
+    - DNSSEC not enabled; no CAA records.
+    - SPF present; DMARC present but policy is p=none (monitor only).
+    - Investor portal sets a strict CSP with frame-ancestors 'none' and a restrictive Permissions-Policy.
+  hygieneObserved:
+  - finding: production sitemap points at the staging host
+    detail: >-
+      https://diversyfund.com/sitemap.xml returns 200 but every <loc> is
+      https://staging-web.diversyfund.com/..., and robots.txt declares
+      "Host: staging-web.diversyfund.com". The staging host is publicly
+      reachable (200). This is a crawl/indexing misconfiguration on the
+      provider's side, reported here as an observation.
+recommendation: >-
+  Profile-only listing. There is no API surface to score on contract quality, and
+  none should be manufactured. If DiversyFund's stated move toward being a
+  technology company produces a public investor or advisor API, the artifacts to
+  ask them for first are an OpenAPI at an api.* host, a /.well-known/security.txt
+  (RFC 9116), and a status page — the three cheapest things a regulated fintech
+  can publish.

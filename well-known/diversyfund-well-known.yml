@@ -1,0 +1,56 @@
+generated: '2026-08-04'
+method: probed
+source: live GET of /.well-known/* on every DiversyFund host known to the profile
+note: >-
+  Every probed /.well-known/ path returned 404 on both the marketing host and the
+  investor-portal host. No document was saved because none exists. This file is a
+  record of the probe, not a discovery surface — no `WellKnown` or `SecurityTxt`
+  pointer is wired into apis.yml, because DiversyFund publishes neither.
+hosts:
+- host: https://diversyfund.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://portal.diversyfund.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+adjacent:
+- path: /robots.txt
+  host: https://diversyfund.com
+  status: 200
+  note: >-
+    Disallows /admin/, /callback, /api/, and several private program paths. The
+    /api/ prefix is the marketing site's internal Next.js route handler surface;
+    every probed path under it returns 404 anonymously.
+- path: /sitemap.xml
+  host: https://diversyfund.com
+  status: 200
+  note: >-
+    Misconfiguration observed at probe time — every <loc> in the production
+    sitemap points at https://staging-web.diversyfund.com/ rather than the
+    production host, and the Host: line in robots.txt names the staging host too.
