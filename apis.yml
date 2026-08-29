@@ -11,6 +11,17 @@ description: 'DiversyFund is a San Diego based private-markets investment platfo
   authenticated investor portal at portal.diversyfund.com (WorkOS AuthKit); DiversyFund
   publishes no public developer portal, API documentation, SDKs, or machine-readable
   API contract.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://diversyfund.com/images/diversyfund-logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/diversyfund/refs/heads/main/apis.yml
 x-type: company
